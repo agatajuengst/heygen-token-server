@@ -16,7 +16,7 @@ export default async function handler(req, res) {
       mode: "FULL",
       // avatar_id MUSS gesetzt sein. Wenn du es noch nicht übergibst,
       // trag hier testweise eine feste ID ein:
-      avatar_id: avatarId || "<DEIN_AVATAR_ID>",
+      avatar_id: avatarId || "bb1f6ebc-b388-4a39-9e2b-8df618e0377c",
       avatar_persona: {
         language: "de",
         // optional:
