@@ -1,5 +1,5 @@
 export default async function handler(req, res) {
-  // CORS (damit Webflow im Browser darauf zugreifen darf)
+  // CORS, damit Webflow fetchen darf
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
@@ -8,20 +8,21 @@ export default async function handler(req, res) {
   if (req.method !== "POST") return res.status(405).json({ error: "Only POST allowed" });
 
   try {
-    // Optional: pro Seite anderer Avatar (z.B. ?avatar_id=...)
     const url = new URL(req.url, `https://${req.headers.host}`);
-    const avatarId = url.searchParams.get("avatar_id"); // kannst du später nutzen
+
+    // per URL steuerbar:
+    // .../api/heygen-token?avatar_id=UUID&context_id=UUID
+    const avatarId = url.searchParams.get("avatar_id") || "HIER_DEFAULT_AVATAR_UUID";
+    const contextId = url.searchParams.get("context_id") || "HIER_DEFAULT_CONTEXT_UUID";
 
     const body = {
       mode: "FULL",
-      // avatar_id MUSS gesetzt sein. Wenn du es noch nicht übergibst,
-      // trag hier testweise eine feste ID ein:
-      avatar_id: avatarId || "bb1f6ebc-b388-4a39-9e2b-8df618e0377c",
+      avatar_id: avatarId,
       avatar_persona: {
         language: "de",
-        // optional:
-        // voice_id: "<DEIN_VOICE_ID>",
-        // context_id: "<DEIN_CONTEXT_ID>",
+        context_id: contextId,
+        // voice_id optional, falls du eine fix setzen willst:
+        // voice_id: "HIER_VOICE_UUID",
       },
     };
 
