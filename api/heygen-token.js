@@ -17,10 +17,11 @@ export default async function handler(req, res) {
   try {
     const response = await fetch("https://api.heygen.com/v1/streaming.create_token", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-Api-Key": process.env.HEYGEN_API_KEY,
-      },
+     headers: {
+  "Content-Type": "application/json",
+  "X-Api-Key": process.env.HEYGEN_API_KEY,
+  "Authorization": `Bearer ${process.env.HEYGEN_API_KEY}`,
+},
       body: JSON.stringify({}),
     });
 
