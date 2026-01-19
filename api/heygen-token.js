@@ -13,7 +13,7 @@ export default async function handler(req, res) {
     // per URL steuerbar:
     // .../api/heygen-token?avatar_id=UUID&context_id=UUID
     const avatarId = url.searchParams.get("avatar_id") || "bb1f6ebc-b388-4a39-9e2b-8df618e0377c";
-    const contextId = url.searchParams.get("context_id") || "0316a6c3-2197-49dc-9c78-1aa7b290fec8";
+    const contextId = url.searchParams.get("context_id") || "0b5f17e9-9d02-4a38-b388-6a6e357dc14f";
 
     const body = {
       mode: "FULL",
