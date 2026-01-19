@@ -17,8 +17,8 @@ export default async function handler(req, res) {
     const url = new URL(req.url, `https://${req.headers.host}`);
 
     // per URL steuerbar
-    const avatarId = url.searchParams.get("avatar_id") || "HIER_DEFAULT_AVATAR_UUID";
-    const contextId = url.searchParams.get("context_id") || "HIER_DEFAULT_CONTEXT_UUID";
+    const avatarId = url.searchParams.get("avatar_id") || "bb1f6ebc-b388-4a39-9e2b-8df618e0377c";
+    const contextId = url.searchParams.get("context_id") || "0b5f17e9-9d02-4a38-b388-6a6e357dc14f";
 
     const body = {
       mode: "FULL",
