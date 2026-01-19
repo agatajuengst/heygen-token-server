@@ -20,7 +20,7 @@ export default async function handler(req, res) {
       avatar_id: avatarId,
       avatar_persona: {
         language: "de",
-        context_id: contextId,
+        context_id: 0b5f17e9-9d02-4a38-b388-6a6e357dc14f,
         // voice_id optional, falls du eine fix setzen willst:
         // voice_id: "HIER_VOICE_UUID",
       },
