@@ -1,25 +1,32 @@
 export default async function handler(req, res) {
+  // CORS
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
 
+  // Preflight
   if (req.method === "OPTIONS") return res.status(200).end();
-  if (req.method !== "POST") return res.status(405).json({ error: "Only POST allowed" });
+
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: "Only POST allowed" });
+  }
 
   try {
     const url = new URL(req.url, `https://${req.headers.host}`);
 
     const avatarId  = url.searchParams.get("avatar_id")  || "bb1f6ebc-b388-4a39-9e2b-8df618e0377c";
     const contextId = url.searchParams.get("context_id") || "0b5f17e9-9d02-4a38-b388-6a6e357dc14f";
-    const voiceId   = url.searchParams.get("voice_id"); // ✅ NEW (optional)
+    const voiceId   = url.searchParams.get("voice_id"); // optional
+    const lang      = url.searchParams.get("lang") || "auto"; // ✅ NEW (default auto)
 
     const body = {
       mode: "FULL",
       avatar_id: avatarId,
       avatar_persona: {
-        language: "de",
+        // ✅ allow auto language switching
+        language: lang,
         context_id: contextId,
-        ...(voiceId ? { voice_id: voiceId } : {}) // ✅ only include if provided
+        ...(voiceId ? { voice_id: voiceId } : {}),
       },
     };
 
@@ -28,7 +35,7 @@ export default async function handler(req, res) {
       headers: {
         "Content-Type": "application/json",
         "X-API-KEY": process.env.LIVEAVATAR_API_KEY,
-        "accept": "application/json",
+        accept: "application/json",
       },
       body: JSON.stringify(body),
     });
